@@ -46,6 +46,15 @@ Especializada em sobrevivência, preparação para emergências, bushcraft e pri
 
 ---
 
+# 📸 Screenshot
+
+Imagem do programa:
+
+![Print](Luna-1.jpg)
+![Print](Luna-2.jpg)
+
+---
+
 ## 🚀 Instalação
 
 ### 1. Instale o Termux
