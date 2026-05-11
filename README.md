@@ -82,6 +82,6 @@ cd ~
 ./install.sh
 
 # Inicia a Luna IA
-python3 luna.py
+python luna.py
 
 ---
