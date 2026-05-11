@@ -45,3 +45,34 @@ Especializada em sobrevivência, preparação para emergências, bushcraft e pri
 | Internet | Apenas na instalação |
 
 ---
+
+## 🚀 Instalação
+
+### 1. Instale o Termux
+Baixe pelo [F-Droid](https://f-droid.org/pt/packages/com.termux/) (recomendado)
+
+### 2. Execute os comandos abaixo no Termux
+
+```bash
+# Clona o repositório para o seu dispositivo
+git clone https://github.com/biohack-dev/Luna-IA-Offline
+
+# Entra na pasta do projeto
+cd Luna-IA-Offline
+
+# Dá permissão de execução ao instalador
+chmod +x install.sh
+
+# Copia todos os arquivos para a raiz do Termux
+cp -r * ~/
+
+# Volta para a raiz do Termux
+cd ~
+
+# Executa o instalador (baixa dependências e configura o modelo)
+./install.sh
+
+# Inicia a Luna IA
+python3 luna.py
+
+---
