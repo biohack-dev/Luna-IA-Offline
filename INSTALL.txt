@@ -1,0 +1,159 @@
+##########
+# TERMUX #
+##########
+
+```
+apt update -y && apt upgrade -y
+
+apt install openssh -y
+
+passwd
+
+apt install bc jq curl git nmap wget python3 -y
+
+apt libxml2 libxslt termux-api -y
+
+python -m pip install --upgrade pip
+
+pip install requests beautifulsoup4 lxml aiml urllib3
+
+apt install ollama
+
+```
+
+##########
+# OLLAMA #
+##########
+
+
+```
+ollama pull qwen2.5:1.5b
+
+nano Luna.Modelfile
+
+FROM qwen2.5:1.5b
+
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+PARAMETER top_k 50
+PARAMETER repeat_penalty 1.1
+PARAMETER num_predict 150
+PARAMETER num_ctx 2048
+
+SYSTEM """
+Voce e uma assistente pessoal especialista em sobrevivencialismo, preparacao para emergencias,
+bushcraft, primeiros socorros, e vida ao ar livre. Seja natural, conversacional e util.
+Responda como uma pessoa normal, sem formalidades excessivas.
+Use linguagem natural, ocasionalmente pode usar girias ou ser descontraido.
+Seu foco e ajudar o usuario com dicas praticas de sobrevivencia, preparacao e seguranca.
+Nao precisa se apresentar a cada resposta. Apenas responda diretamente o que foi perguntado.
+
+Voce e uma especialista em sobrevivencialismo. Suas respostas devem ser:
+- Curtas e diretas (maximo 2 linhas)
+- Objetivas e praticas
+- Sem enrolacao
+- Sem se apresentar
+- Sem cumprimentos desnecessarios
+- Va direto ao ponto com a informacao solicitada
+
+Exemplo de resposta ideal:
+Pergunta: "Como fazer fogo?"
+Resposta: "Use uma corda e uma madeira seca. Gire rapidamente ate formar brasa."
+
+Nao explique demais. Seja precisa e util.
+"""
+
+ollama create luna -f Luna.Modelfile
+
+ollama run luna
+```
+
+
+###########################
+# Auto start ssh e ollama #
+########################### 
+
+
+nano .bashrc
+
+
+```
+# =========================================================
+# SSHD
+# =========================================================
+
+if ! pgrep -x "sshd" > /dev/null 2>&1; then
+
+    nohup sshd > /dev/null 2>&1 &
+
+    echo "[OK] SSH iniciado :8022"
+
+fi
+
+# =========================================================
+# OLLAMA SERVER
+# =========================================================
+
+if ! pgrep -f "ollama serve" > /dev/null 2>&1; then
+
+    export OLLAMA_NUM_PARALLEL=1
+    export OLLAMA_MAX_LOADED_MODELS=1
+    export OLLAMA_KEEP_ALIVE=-1
+
+    nohup ollama serve > /dev/null 2>&1 &
+
+    sleep 2
+
+    echo "[OK] Ollama iniciado"
+
+fi
+
+# =========================================================
+# PRELOAD MODELO
+# =========================================================
+
+if ! pgrep -f "ollama run luna" > /dev/null 2>&1; then
+
+    (
+        ollama run luna "oi" \
+        > /dev/null 2>&1
+    ) &
+
+fi
+
+# =========================================================
+# PERFORMANCE TERMUX
+# =========================================================
+
+export PYTHONDONTWRITEBYTECODE=1
+export PYTHONUNBUFFERED=1
+
+# reduz lags em alguns androids
+export TERM=xterm-256color
+
+# =========================================================
+# CLEAN
+# =========================================================
+
+clear
+
+# =========================================================
+# INFO
+# =========================================================
+
+echo "================================="
+echo " Usuario : $(whoami)"
+echo " Host     : $(hostname)"
+echo " Shell    : $SHELL"
+echo "================================="
+echo
+
+```
+
+#######
+# RUN #
+#######
+
+```
+python luna.py
+```
