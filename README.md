@@ -45,17 +45,3 @@ Especializada em sobrevivência, preparação para emergências, bushcraft e pri
 | Internet | Apenas na instalação |
 
 ---
-
-## 🚀 Instalação Rápida
-
-### 1. Instale o Termux
-Baixe pelo F-Droid (recomendado)
-
-### 2. Execute no Termux:
-
-```bash
-# Instalar dependências
-apt update && apt upgrade -y
-apt install openssh bc jq curl git nmap wget python3 -y
-pip install requests beautifulsoup4 lxml aiml urllib3
-apt install ollama
